@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find cargobot_base)/launch/cargobot_odrive.launch" />
+	<node name="cargobot_base_node" pkg="cargobot_base" type="cargobot_base_node" output="screen">
+    	<param name="control_frequency" type="double" value="10.0"/>
+		<param name="max_wheel_angular_speed" type="double" value="10.0"/>
+	</node>
+</launch>

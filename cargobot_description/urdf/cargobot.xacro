@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="cargobot"
+	xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<!-- Matherials -->
+	<xacro:include filename="$(find cargobot_description)/urdf/cargobot_materials.xacro" />
+    <!-- Gazebo parameters -->
+    <xacro:include filename="$(find cargobot_description)/urdf/cargobot.gazebo" />
+    <xacro:property name="clearance" value="0.028" />
+    <xacro:property name="wheel_radius" value="0.085"/>
+    <xacro:property name="wheel_separation" value="0.383"/>
+    <xacro:property name="wheel_width" value="0.045"/>
+    <xacro:property name="mass" value="0.1"/>
+    <xacro:property name="wheel_mass" value="0.2"/>
+    <xacro:property name="marker_mass" value="0.0"/>
+    <xacro:property name="inertia" value="0.3"/>
+    <xacro:property name="PI" value="3.1415926"/>
+    <xacro:property name="wheel_ixx" value="${wheel_mass*(3*wheel_radius*wheel_radius+wheel_width*wheel_width)/12}" />
+    <xacro:property name="wheel_ixy" value="0.0" />
+    <xacro:property name="wheel_ixz" value="0.0" />
+    <xacro:property name="wheel_iyy" value="${wheel_mass*(3*wheel_radius*wheel_radius+wheel_width*wheel_width)/12}" />
+    <xacro:property name="wheel_iyz" value="0.0" />
+    <xacro:property name="wheel_izz" value="${wheel_mass*wheel_radius*wheel_radius/2}" />
+	<!-- streetbot_base -->
+    <link name="base_link">
+    </link>
+	<link name="body_link">
+		<visual>
+			<origin xyz="0 0 ${clearance}" rpy="${PI/2} 0 ${PI/2}" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/body_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+			<material name="White" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 ${clearance}" rpy="${PI/2} 0 ${PI/2}" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/body_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+		</collision>
+        <inertial>
+            <origin xyz="0 0 ${clearance}" rpy="0 0 0" />
+            <mass value="${mass}" />
+            <inertia ixx="${inertia}" ixy="0.0" ixz="0.0" iyy="${inertia}" iyz="0.0" izz="${inertia}" />
+        </inertial>
+	</link>
+    <joint name="base_to_body" type="fixed">
+        <axis rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="base_link" />
+        <child link="body_link" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <!-- Wheels -->
+    <link name="left_wheel">
+        <visual>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="Red" />
+        </visual>
+        <collision>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${wheel_mass}" />
+            <inertia ixx="${wheel_ixx}" ixy="${wheel_ixy}" ixz="${wheel_ixz}" iyy="${wheel_iyy}" iyz="${wheel_iyz}" izz="${wheel_izz}" />
+        </inertial>
+    </link>
+    <link name="right_wheel">
+        <visual>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="Red" />
+        </visual>
+        <collision>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${wheel_mass}" />
+            <inertia ixx="${wheel_ixx}" ixy="${wheel_ixy}" ixz="${wheel_ixz}" iyy="${wheel_iyy}" iyz="${wheel_iyz}" izz="${wheel_izz}" />
+        </inertial>
+    </link>
+        <link name="caster_link1">
+        <visual>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/caster_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Red" />
+        </visual>
+        <collision>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/caster_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${wheel_mass}" />
+            <inertia ixx="${wheel_ixx}" ixy="${wheel_ixy}" ixz="${wheel_ixz}" iyy="${wheel_iyy}" iyz="${wheel_iyz}" izz="${wheel_izz}" />
+        </inertial>
+    </link>
+    <link name="caster_link2">
+        <visual>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/caster_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Red" />
+        </visual>
+        <collision>
+			<origin xyz="0 0 0" rpy="${PI / 2} 0 0" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/caster_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${wheel_mass}" />
+            <inertia ixx="${wheel_ixx}" ixy="${wheel_ixy}" ixz="${wheel_ixz}" iyy="${wheel_iyy}" iyz="${wheel_iyz}" izz="${wheel_izz}" />
+        </inertial>
+    </link>
+    <joint name="base_to_left_wheel" type="continuous">
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <parent link="body_link" />
+        <child link="left_wheel" />
+        <origin xyz="0.0 ${wheel_separation/2} ${wheel_radius}" rpy="0 0 0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+        <limit effort= "100" velocity="100"/>
+    </joint>
+    <joint name="base_to_right_wheel" type="continuous">
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <parent link="body_link" />
+        <child link="right_wheel" />
+		<origin xyz="0.0 ${-1 * (wheel_separation/2)} ${wheel_radius}" rpy="0 0 0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+        <limit effort= "100" velocity="100"/>
+    </joint>
+    <joint name="base_to_caster1" type="fixed">
+		<origin xyz="-0.155 0 ${clearance}" rpy="${PI/2} 0 0" />
+		<parent link="body_link" />
+		<child link="caster_link1" />
+		<axis xyz="0 1 0" />
+	</joint>
+    <joint name="base_to_caster2" type="fixed">
+		<origin xyz="0.155 0 ${clearance}" rpy="${PI/2} 0 0" />
+		<parent link="body_link" />
+		<child link="caster_link2" />
+		<axis xyz="0 1 0" />
+	</joint>
+</robot>

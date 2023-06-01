@@ -1,0 +1,5 @@
+<launch>
+	<rosparam file="$(find cargobot_control)/config/cargobot_control_config.yaml" command="load" />
+	<node name="controller_spawner" pkg="controller_manager" type="spawner"
+		respawn="false" output="screen" args="joint_state_controller cargobot_drive_controller" />
+</launch>
