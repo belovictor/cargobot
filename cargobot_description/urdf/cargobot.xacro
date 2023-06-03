@@ -43,11 +43,37 @@
             <inertia ixx="${inertia}" ixy="0.0" ixz="0.0" iyy="${inertia}" iyz="0.0" izz="${inertia}" />
         </inertial>
 	</link>
+    <link name="camera_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 ${PI/2}" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/camera_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+			<material name="Red" />
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 ${PI/2}" />
+            <geometry>
+                <mesh filename="package://cargobot_description/meshes/camera_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+		</collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="${mass}" />
+            <inertia ixx="${inertia}" ixy="0.0" ixz="0.0" iyy="${inertia}" iyz="0.0" izz="${inertia}" />
+        </inertial>
+    </link>
     <joint name="base_to_body" type="fixed">
         <axis rpy="0 0 0" xyz="0 0 0"/>
         <parent link="base_link" />
         <child link="body_link" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="camera_to_base" type="fixed">
+        <axis rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="body_link" />
+        <child link="camera_link" />
+        <origin xyz="0.229 0 ${clearance + 0.120}" rpy="0 0 0"/>
     </joint>
     <!-- Wheels -->
     <link name="left_wheel">
