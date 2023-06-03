@@ -1,0 +1,4 @@
+<launch>
+    <!-- <include file="$(find cargobot_drivers)/launch/cargobot_lidar.launch" /> -->
+    <include file="$(find cargobot_drivers)/launch/cargobot_realsense.launch" />
+</launch>
